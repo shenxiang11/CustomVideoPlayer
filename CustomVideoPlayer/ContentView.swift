@@ -9,13 +9,7 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
-        }
-        .padding()
+        VideoView(videoUrl: "https://ios-demo.oss-cn-shanghai.aliyuncs.com/2024011602.mp4")
     }
 }
 
