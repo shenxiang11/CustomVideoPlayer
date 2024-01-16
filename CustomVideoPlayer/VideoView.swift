@@ -222,6 +222,10 @@ struct VideoView: View {
                                 player?.seek(to: .init(seconds: totalDuration * progress, preferredTimescale: 600))
 
                             }
+                            
+                            if isPlaying {
+                                scheduleControl()
+                            }
                         })
                 )
         }
