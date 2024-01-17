@@ -11,6 +11,7 @@ import AVKit
 struct VideoView: View {
     var player: AVPlayer?
     
+    @GestureState private var isForcePressing = false
     @State private var showControl = false
     @State private var isPlaying = false
     @State private var isFinishedPlaying = false
@@ -56,6 +57,25 @@ struct VideoView: View {
                             }
                         }
                     }
+                    .gesture(
+                        LongPressGesture(minimumDuration: 1)
+                            .sequenced(before: DragGesture(minimumDistance: 0, coordinateSpace: .local))
+                            .updating($isForcePressing, body: { value, state, _ in
+                                switch value {
+                                case .second(true, _):
+                                    state = true
+                                    if isPlaying {
+                                        player.rate = 5
+                                    }
+                                default: break
+                                }
+                            })
+                            .onEnded({ _ in
+                                if isPlaying {
+                                    player.rate = 1
+                                }
+                            })
+                    )
             }
         
         }
