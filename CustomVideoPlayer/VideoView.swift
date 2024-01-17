@@ -48,6 +48,14 @@ struct VideoView: View {
                     .overlay(alignment: .bottom) {
                         videoSeekerView
                     }
+                    .overlay {
+                        if isForcePressing && isPlaying {
+                            Image(systemName: "bolt.fill")
+                                .font(.title)
+                                .foregroundStyle(.white)
+                                .symbolEffect(.pulse, options: .speed(600))
+                        }
+                    }
                     .onTapGesture {
                         withAnimation {
                             showControl.toggle()
@@ -64,7 +72,7 @@ struct VideoView: View {
                                 switch value {
                                 case .second(true, _):
                                     state = true
-                                    if isPlaying {
+                                    if isPlaying && !showControl {
                                         player.rate = 5
                                     }
                                 default: break
